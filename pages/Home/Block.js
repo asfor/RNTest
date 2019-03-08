@@ -2,7 +2,7 @@ import React from 'react'
 import {View} from 'react-native'
 
 export default props => {
-  const {children, whiteSpace, style} = this.props
+  const {children, whiteSpace, style} = props
   
   return (
     <View style={{
