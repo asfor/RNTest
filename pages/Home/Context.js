@@ -1,13 +1,8 @@
-import React, {createContext} from 'react'
+import createContext from '../../utils/createContext'
 
 export const initData = {
   recommendLoading: false,
   recommendData: []
 }
 
-export const {Provider, Consumer} = createContext(initData)
-export const context = Component => props => (
-  <Consumer>
-    {dataSource => <Component {...props} dataSource={dataSource} />}
-  </Consumer>
-)
+export const {Provider, Consumer, context} = createContext(initData)

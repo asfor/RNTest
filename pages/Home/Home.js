@@ -7,7 +7,7 @@ import Chosen from './Chosen/Chosen'
 import Recommend from './Recommend/Recommend'
 import Activitiy from './Activitiy/Activitiy'
 
-import {Provider, initData} from './Context'
+import {Provider, initData} from './context'
 
 export default class Home extends React.PureComponent {
   static navigationOptions = {

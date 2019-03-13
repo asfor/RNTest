@@ -4,10 +4,10 @@ import Icon from 'react-native-vector-icons/Feather'
 
 import Block from '../Block'
 import Card from './Card'
-import {context} from '../Context'
+import {context} from '../context'
 
 const Recommend = props => {
-  const {recommendData, recommendLoading} = props.dataSource
+  const {recommendData, recommendLoading} = props.store
 
   return (
     <Block>

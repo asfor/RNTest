@@ -5,17 +5,15 @@ import Card from './Card'
 
 export default props => (
   <FlatList
+    data={props.data}
+    renderItem={renderItem}
+    keyExtractor={(_, i) => `${i}`}
     style={{
       flex: 1,
       paddingLeft: 5,
       paddingRight: 5,
     }}
-    data={props.data}
-    renderItem={renderItem}
-    keyExtractor={(_, i) => `${i}`}
   />
 )
 
-function renderItem({item}) {
-  return <Card {...item} />
-}
+const renderItem = ({item}) => <Card {...item} />

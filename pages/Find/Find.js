@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {ScrollView, View} from 'react-native'
 
 import HarfList from './HarfList'
 
@@ -36,7 +36,7 @@ const data = [{
   up: 1
 }, {
   img: require('../../static/06.jpg'),
-  title: '都是免费的！提前在网上预约的门票',
+  title: '都是免费的！',
   user: '巧克力嘛',
   avatar,
   up: 50
@@ -88,16 +88,18 @@ export default class Find extends React.PureComponent {
     const {data1, data2} = this.state
 
     return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'row',
-        paddingLeft: 10,
-        paddingRight: 10,
-        backgroundColor: '#eee'
-      }}>
-        <HarfList data={data1} />
-        <HarfList data={data2} />
-      </View>
+      <ScrollView>
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          paddingLeft: 10,
+          paddingRight: 10,
+          backgroundColor: '#eee'
+        }}>
+          <HarfList data={data1} />
+          <HarfList data={data2} />
+        </View>
+      </ScrollView>
     )
   }
 
