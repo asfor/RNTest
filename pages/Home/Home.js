@@ -43,9 +43,8 @@ export default class Home extends React.PureComponent {
   onScroll = e => {
     const {contentOffset: {y: scroll}, contentSize: {height: content}, layoutMeasurement: {height: view}} = e.nativeEvent
 
-    if (scroll + view >= content - 150) {
+    if (scroll + view >= content - 150)
       this.getData()
-    }
   }
 
   getData = () => {

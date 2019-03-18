@@ -1,12 +1,12 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native'
+import {ScrollView, View, RefreshControl} from 'react-native'
 
 import HarfList from './HarfList'
 
 const avatar = require('../../static/user.jpg')
 const data = [{
   img: require('../../static/01.jpg'),
-  title: '我要疯狂安利给身边的小伙伴们哈哈哈哈哈哈哈哈asdasdasd',
+  title: '我要疯狂安利给身边的小伙伴们哈哈哈哈哈哈哈哈',
   user: '卡希',
   avatar,
   up: 0
@@ -77,7 +77,8 @@ export default class Find extends React.PureComponent {
 
   state = {
     data1: [],
-    data2: []
+    data2: [],
+    refreshing: false
   }
 
   componentDidMount() {
@@ -85,16 +86,27 @@ export default class Find extends React.PureComponent {
   }
 
   render() {
-    const {data1, data2} = this.state
+    const {data1, data2, refreshing} = this.state
 
     return (
-      <ScrollView>
+      <ScrollView
+        style={{backgroundColor: '#eee'}}
+        scrollsToTop={true}
+        onScroll={this.onScroll}
+        scrollEventThrottle={5}
+        showsVerticalScrollIndicator={false}
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={this.onRefresh}
+          />
+        )}
+      >
         <View style={{
           flex: 1,
           flexDirection: 'row',
           paddingLeft: 10,
-          paddingRight: 10,
-          backgroundColor: '#eee'
+          paddingRight: 10
         }}>
           <HarfList data={data1} />
           <HarfList data={data2} />
@@ -103,12 +115,32 @@ export default class Find extends React.PureComponent {
     )
   }
 
-  getData = () => {
-    const _data = [...data].sort((a, b) => Math.random() > .5)
-    const len = _data.length
-    const data1 = _data.slice(0, len / 2)
-    const data2 = _data.slice(len / 2, len)
+  onRefresh = () => {
+    this.setState({refreshing: true})
+    this.getData(true)
+  }
 
-    this.setState({data1, data2})
+  onScroll = e => {
+    const {contentOffset: {y: scroll}, contentSize: {height: content}, layoutMeasurement: {height: view}} = e.nativeEvent
+
+    if (scroll + view >= content - 150)
+      this.getData()
+  }
+
+  getData = (clean = false) => {
+    const newData = [...data].sort((a, b) => Math.random() > .5 ? 1 : -1)
+    const len = newData.length
+
+    const data1 = [].concat(
+      clean ? [] : this.state.data1,
+      newData.slice(0, len / 2)
+    )
+
+    const data2 = [].concat(
+      clean ? [] : this.state.data2,
+      newData.slice(len / 2, len)
+    )
+
+    setTimeout(() => this.setState({data1, data2, refreshing: false}), 1000)
   }
 }
