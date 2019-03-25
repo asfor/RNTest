@@ -25,11 +25,13 @@ EventEmitter.prototype.once = function(event, cb) {
 
 EventEmitter.prototype.emit = function() {
   const [event, ...args] = arguments
-  const listener = this.eventTable[event]
+  const listener = this.eventTable[event] || {on: [], once: []}
 
   listener.on.forEach(cb => cb(...args))
   listener.once.forEach(cb => cb(...args))
-  listener.once = []
+
+  if (listener.once.length > 0)
+    listener.once = []
 }
 
 export default EventEmitter

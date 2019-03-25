@@ -32,7 +32,14 @@ export default class List extends React.PureComponent {
         paddingBottom: 8,
         backgroundColor: '#eee'
       }}>
-        {this.state.dataSource.map((data, i) => <Item key={i} {...data} />)}
+        {this.state.dataSource.map((data, i) => (
+          <Item
+            {...data}
+            key={i}
+            index={i}
+            onDel={this.delData}
+          />
+        ))}
       </ScrollView>
     )
   }
@@ -40,5 +47,12 @@ export default class List extends React.PureComponent {
   getData = () => {
     const dataSource = data
     setTimeout(() => this.setState({dataSource}), Math.random() * 500)
+  }
+
+  delData = index => {
+    const dataSource = [...this.state.dataSource]
+
+    dataSource.splice(index, 1)
+    this.setState({dataSource})
   }
 }
