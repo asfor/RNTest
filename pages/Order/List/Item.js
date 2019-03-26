@@ -21,7 +21,7 @@ export default class Item extends React.PureComponent {
     title: string,
     status: number,
     img: number,
-    index: number,
+    id: number,
     info: arrayOf(string),
     onDel: func
   }
@@ -112,10 +112,10 @@ export default class Item extends React.PureComponent {
   }
 
   onDel = () => {
-    const {onDel, index} = this.props
+    const {onDel, id} = this.props
 
     console.log(this.props)
-    onDel(index)
+    onDel(id)
   }
 
   onMove = (e, gestureState) => {

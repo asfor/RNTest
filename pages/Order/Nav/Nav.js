@@ -4,9 +4,13 @@ import {View} from 'react-native'
 import Item from './Item'
 import Slider from './Slider'
 
+import emitter from '../emitter'
 import {status} from '../dict'
 
-const category = ['全部', ...Object.values(status)]
+const category = {
+  0: '全部',
+  ...status
+}
 
 export default class Nav extends React.PureComponent {
   state = {
@@ -23,14 +27,15 @@ export default class Nav extends React.PureComponent {
           flexDirection: 'row',
           justifyContent: 'space-evenly'
         }}>
-          {category.map((title, i) => (
+          {Object.keys(category).map((id, i) => (
             <Item
-              key={i}
+              id={+id}
+              key={id}
               index={i}
-              title={title}
+              title={category[id]}
               active={active === i}
               onCreated={i === 0 ? this.initSlider : undefined}
-              onPress={layout => this.onPress(layout, i)}
+              onPress={this.onPress}
             />
           ))}
         </View>
@@ -42,8 +47,10 @@ export default class Nav extends React.PureComponent {
 
   initSlider = initLayout => this.setState({initLayout})
 
-  onPress = (layout, i) => {
+  onPress = (id, layout, i) => {
     this.setState({active: i})
     this.slider.onSlide(layout)
+
+    emitter.emit('toggleTab', id)
   }
 }

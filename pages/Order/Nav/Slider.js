@@ -2,7 +2,6 @@ import React from 'react'
 import {Animated} from 'react-native'
 
 export default class Slider extends React.PureComponent {
-  
   constructor(props) {
     super(props)
 

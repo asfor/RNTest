@@ -25,5 +25,9 @@ export default class Item extends React.PureComponent {
     onCreated && onCreated(layout)
   }
 
-  onPress = () => this.props.onPress(this.state.layout)
+  onPress = () => {
+    const {id, onPress, index} = this.props
+
+    onPress(id, this.state.layout, index)
+  }
 }
