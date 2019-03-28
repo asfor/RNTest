@@ -77,10 +77,7 @@ export default class List extends React.PureComponent {
   getData = () => {
     const dataSource = data
 
-    setTimeout(() => this.setState(
-      {dataSource},
-      () => this.filterData(this.state.displayType)
-    ), Math.random() * 500)
+    setTimeout(() => this.setState({dataSource}, this.filterData), Math.random() * 500)
   }
 
   delData = id => {
@@ -88,16 +85,15 @@ export default class List extends React.PureComponent {
     const index = dataSource.findIndex(data => data.id === id)
 
     dataSource.splice(index, 1)
-    this.setState({dataSource})
+    this.setState({dataSource}, this.filterData)
   }
 
-  filterData = displayType => {
+  filterData = (displayType = this.state.displayType) => {
     const {dataSource} = this.state
     const displayDataSource = !displayType
       ? dataSource
       : dataSource.filter(data => data.status === displayType)
 
-    console.log(displayDataSource)
     this.setState({displayType, displayDataSource})
   }
 }

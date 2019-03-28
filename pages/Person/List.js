@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather'
 
 const Item = props => (
   <TouchableWithoutFeedback onPress={props.onPress}>
-    <View style={style.warp}>
+    <View style={[style.warp, {borderBottomWidth: props.isLast ? 0 : 1}]}>
       <Text numberOfLines={1} style={style.title}>{props.title}</Text>
 
       <View style={style.right}>
@@ -30,8 +30,7 @@ const style = StyleSheet.create({
     paddingBottom: 11,
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#eee',
-    borderBottomWidth: props.isLast ? 0 : 1
+    borderColor: '#eee'
   },
 
   title: {fontSize: 13},
