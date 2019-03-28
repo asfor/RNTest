@@ -4,11 +4,13 @@ import Login from './Login/Login'
 import Home from './Home/Home'
 import Find from './Find/Find'
 import Order from './Order/Order'
+import Person from './Person/Person'
 
 const Main = createBottomTabNavigator({
-  Order: createStackNavigator({Order}),
   Home: createStackNavigator({Home}),
   Find: createStackNavigator({Find}),
+  Order: createStackNavigator({Order}),
+  Person: createStackNavigator({Person})
 })
 
 Main.navigationOptions = {header: null}
